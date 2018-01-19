@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, DateTime
 from flask_marshmallow import Marshmallow
 import os
 import datetime
@@ -21,6 +22,7 @@ class Car(db.Model):
     year = db.Column(db.Integer)
     chasis_id = db.Column(db.String(80))
     price = db.Column(db.Integer)
+    last_updated = db.Column(DateTime, default=datetime.datetime.utcnow)
 
     def __init__(self, make, model, year, chasis_id, price):
         self.make = make
@@ -62,7 +64,7 @@ class Car(db.Model):
 class CarSchema(ma.Schema):
     class Meta:
         # Fields to expose, do not expost the chasis_id
-        fields = ('make', 'model', 'year', 'price')
+        fields = ('id', 'make', 'model', 'year', 'price', 'last_updated')
 
 car_schema = CarSchema()
 cars_schema = CarSchema(many=True)

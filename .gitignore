@@ -1,0 +1,5 @@
+app.pyc
+db.sqlite
+.vscode
+env
+.DS_Store

@@ -2,3 +2,4 @@
 # #Return a car based on its ID: curl -i http://localhost:5000/cars/1
 # #Return all cars: curl -i http://localhost:5000/cars
 # Get average of car: curl -i -H "Content-Type: application/json" -X POST -d '{"make":"BMW", "model":"Mac 4", "year":"2016"}' http://localhost:5000/avg
+# To execute tests; python -m unittest discover or python tests.py

@@ -3,3 +3,4 @@ db.sqlite
 .vscode
 env
 .DS_Store
+tests.pyc

@@ -29,7 +29,7 @@ class TestAPI(unittest.TestCase):
         result = self.app.get('cars/1')
         data = json.loads(result.get_data(as_text=True))
         self.assertEqual(data['id'], 1)
-        self.assertEqual(data['make'], 'FERRARI')
+        self.assertEqual(data['make'], 'Nissan')
         self.assertEqual(data['model'], 'Mac 4')
         self.assertEqual(data['price'], 600)
         self.assertEqual(data['year'], 2016)

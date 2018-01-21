@@ -10,17 +10,18 @@ import pandas
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
+uri = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-#Model
+# Model
 class Car(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    make = db.Column(db.String(80), unique = False)
-    model = db.Column(db.String(80), unique = False)
+    id = db.Column(db.Integer, primary_key=True)
+    make = db.Column(db.String(80), unique=False)
+    model = db.Column(db.String(80), unique=False)
     year = db.Column(db.Integer)
     chasis_id = db.Column(db.String(80))
     price = db.Column(db.Integer)
@@ -40,8 +41,8 @@ class Car(db.Model):
             'year': self.year,
             'chasis_id': self.chasis_id,
             'price': self.price,
-            })
-    
+        })
+
     @staticmethod
     def car_from_json(json_data):
         data = json.loads(json_data)
@@ -62,7 +63,8 @@ class Car(db.Model):
         }
         return json.dumps(data)
 
-#Schema
+
+# Schema
 class CarSchema(ma.Schema):
     class Meta:
         # Fields to expose, do not expost the chasis_id
@@ -71,20 +73,23 @@ class CarSchema(ma.Schema):
 car_schema = CarSchema()
 cars_schema = CarSchema(many=True)
 
-#Show all cars
+
+# Show all cars
 @app.route("/cars", methods=["GET"])
 def get_cars():
     all_cars = Car.query.all()
     res = cars_schema.dump(all_cars)
     return jsonify(res.data)
 
-#Show car by id
+
+# Show car by id
 @app.route("/cars/<id>", methods=["GET"])
 def get_car(id):
     car = Car.query.get(id)
-    return car_schema.jsonify(car) #Single result - not iterable
+    return car_schema.jsonify(car)  # Single result - not iterable
 
-#Create new car
+
+# Create new car
 @app.route("/car", methods=["POST"])
 def create_car():
     make = request.json['make']
@@ -92,7 +97,7 @@ def create_car():
     year = request.json['year']
     chasis_id = request.json['chasis_id']
     price = request.json['price']
-    
+
     new_car = Car(make, model, year, chasis_id, price)
 
     db.session.add(new_car)
@@ -102,20 +107,25 @@ def create_car():
     car_back = Car.car_from_json(json_car)
     return car_back.output()
 
-#Delete a car
+
+# Delete a car
 @app.route("/cars/delete/<id>", methods=["DELETE"])
 def delete_car(id):
     db.session.delete(Car.query.get(id))
     db.session.commit()
-    return jsonify( { 'result': True } )
+    return jsonify({'result': True})
 
-#Get average price
+
+# Get average price
 @app.route("/avg", methods=["POST"])
 def get_average():
     make = request.json['make']
     model = request.json['model']
     year = request.json['year']
-    average_price = db.session.query(func.avg(Car.price)).filter(Car.make == make).filter(Car.model == model).filter(Car.year == year).scalar()
+    average_price = db.session.query(func.avg(Car.price))\
+        .filter(Car.make == make)\
+        .filter(Car.model == model)\
+        .filter(Car.year == year).scalar()
 
     data = {
         'average_price': average_price
@@ -123,22 +133,5 @@ def get_average():
 
     return json.dumps(data)
 
-#Seed method to add some initial data
-def seed():
-    df = pandas.read_table("data.csv", sep=",")
-
-    for index, row in df.iterrows():
-        make = row[0]
-        model = row[1]
-        year = row[2]
-        chasis_id = row[3]
-        price = row[4]
-        last_updated = row[5]
-
-        new_car = Car(make, model, year, chasis_id, price)
-        db.session.add(new_car)
-        db.session.commit()
-
 if __name__ == '__main__':
     app.run(debug=True)
-    app.seed()

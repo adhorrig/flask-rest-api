@@ -1,6 +1,0 @@
-# Create a car: curl -i -H "Content-Type: application/json" -X POST -d '{"make":"BMW", "model":"Mac 4", "year":"2016", "chasis_id":"ABC1234A", "price":500.00}' http://localhost:5000/car
-# Return a car based on its ID: curl -i http://localhost:5000/cars/1
-# Return all cars: curl -i http://localhost:5000/cars
-# To delete a car; curl -X "DELETE" http://localhost:5000/cars/delete/25
-# Get average of car: curl -i -H "Content-Type: application/json" -X POST -d '{"make":"Ford", "model":"Fiesta", "year":"2002"}' http://localhost:5000/avg
-# To execute tests; python -m unittest discover or python tests.py

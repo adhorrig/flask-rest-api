@@ -102,6 +102,13 @@ def create_car():
     car_back = Car.car_from_json(json_car)
     return car_back.output()
 
+#Delete a car
+@app.route("/cars/delete/<id>", methods=["DELETE"])
+def delete_car(id):
+    db.session.delete(Car.query.get(id))
+    db.session.commit()
+    return jsonify( { 'result': True } )
+
 #Get average price
 @app.route("/avg", methods=["POST"])
 def get_average():

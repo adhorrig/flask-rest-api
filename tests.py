@@ -30,9 +30,9 @@ class TestAPI(unittest.TestCase):
         data = json.loads(result.get_data(as_text=True))
         self.assertEqual(data['id'], 1)
         self.assertEqual(data['make'], 'Nissan')
-        self.assertEqual(data['model'], 'Mac 4')
-        self.assertEqual(data['price'], 600)
-        self.assertEqual(data['year'], 2016)
+        self.assertEqual(data['model'], 'Micra')
+        self.assertEqual(data['price'], 500)
+        self.assertEqual(data['year'], 2004)
 
     #Test the ability to create a car
     def test_create(self):

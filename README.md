@@ -8,6 +8,12 @@ You can easily install via Docker;
 
 ```
 git clone https://adhorrig/flask-rest-api
+bash build.sh
+```
+
+`build.sh` runs the below for you;
+
+```
 docker build -t flask-container:latest .
 docker run -d -p 5000:5000 flask-container
 ```

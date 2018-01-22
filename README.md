@@ -1,5 +1,5 @@
 # Car API
-A RESTful API to retrieve and create car data. 
+A RESTful API to retrieve and create car data.
 
 
 ## Installation
@@ -41,27 +41,27 @@ curl -i http://localhost:5000/cars
 ```json
 [
   {
-    "id": 1, 
-    "last_updated": "2018-01-21T22:12:33.948846+00:00", 
-    "make": "Nissan", 
-    "model": "Micra", 
-    "price": 500, 
+    "id": 1,
+    "last_updated": "2018-01-21T22:12:33.948846+00:00",
+    "make": "Nissan",
+    "model": "Micra",
+    "price": 500,
     "year": 2004
-  }, 
+  },
   {
-    "id": 2, 
-    "last_updated": "2018-01-21T22:12:33.957004+00:00", 
-    "make": "Nissan", 
-    "model": "Micra", 
-    "price": 400, 
+    "id": 2,
+    "last_updated": "2018-01-21T22:12:33.957004+00:00",
+    "make": "Nissan",
+    "model": "Micra",
+    "price": 400,
     "year": 2004
-  }, 
+  },
   {
-    "id": 3, 
-    "last_updated": "2018-01-21T22:12:33.961886+00:00", 
-    "make": "Ford", 
-    "model": "Fiesta", 
-    "price": 300, 
+    "id": 3,
+    "last_updated": "2018-01-21T22:12:33.961886+00:00",
+    "make": "Ford",
+    "model": "Fiesta",
+    "price": 300,
     "year": 2002
   }
 ]
@@ -80,11 +80,11 @@ curl -i http://localhost:5000/cars/1
 
 ```json
 {
-  "id": 1, 
-  "last_updated": "2018-01-21T22:12:33.948846+00:00", 
-  "make": "Nissan", 
-  "model": "Micra", 
-  "price": 500, 
+  "id": 1,
+  "last_updated": "2018-01-21T22:12:33.948846+00:00",
+  "make": "Nissan",
+  "model": "Micra",
+  "price": 500,
   "year": 2004
 }
 ```
@@ -115,6 +115,28 @@ curl -i -H "Content-Type: application/json" -X POST -d '{"make":"Ford", "model":
 
 ```json
 {"average_price": 300.0}
+```
+
+#### Update Car
+
+
+This endpoint updates the price of a car.
+
+```shell
+curl -X PUT -H "Content-Type: application/json" -d '{"price":500}' http://localhost:5000/cars/1
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 1,
+  "last_updated": "2018-01-22T12:41:45.785164+00:00",
+  "make": "Nissan",
+  "model": "Micra",
+  "price": 500,
+  "year": 2004
+}
 ```
 
 #### Delete Car

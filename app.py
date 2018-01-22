@@ -115,6 +115,16 @@ def delete_car(id):
     db.session.commit()
     return jsonify({'result': True})
 
+@app.route("/cars/<id>", methods=["PUT"])
+def update_car(id):
+    car = Car.query.get(id)
+    price = request.json['price']
+
+    car.price = price
+
+    db.session.commit()
+    return car_schema.jsonify(car)
+
 
 # Get average price
 @app.route("/avg", methods=["POST"])

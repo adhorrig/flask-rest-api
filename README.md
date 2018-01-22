@@ -164,16 +164,34 @@ curl -X "DELETE" http://localhost:5000/cars/delete/25
 
 ## Testing
 
-There are several tests which are done against the API, unittests. There are two ways to run the tests;
+There are several tests which are done against the API, unittests. If you are running the app from within a container, you will need to run the tests with;
 
 ```shell
-python -m unittest discover
+ docker exec -it ${CONTAINER_ID} python tests.py
 ```
 
 Or;
 
-```python
+```shell
+docker exec -it ${CONTAINER_ID} python -m unittest discover
+```
+
+You can find out your container id by running;
+
+```shell
+docker ps
+```
+
+However, if you are not running the app from within a container - you can run the tests with;
+
+```shell
 python tests.py
+```
+
+Or;
+
+```shell
+python -m unittest discover
 ```
 
 ## Questions or difficulty?

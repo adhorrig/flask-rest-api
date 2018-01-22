@@ -115,6 +115,8 @@ def delete_car(id):
     db.session.commit()
     return jsonify({'result': True})
 
+
+# Update a car
 @app.route("/cars/<id>", methods=["PUT"])
 def update_car(id):
     car = Car.query.get(id)

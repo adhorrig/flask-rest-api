@@ -25,9 +25,9 @@ git clone https://adhorrig/flask-rest-api
 virtualenv env
 source env/bin/activate
 pip install -r requirements.txt
-python db.py
-python seed.py
-python app.py
+python src/db.py
+python src/seed.py
+python src/app.py
 ```
 
 Note, if you are *not* running through Docker, you will need to remove `, host='0.0.0.0'` from line 137 in `app.py`
@@ -167,7 +167,7 @@ curl -X "DELETE" http://localhost:5000/cars/delete/25
 There are several tests which are done against the API, unittests. If you are running the app from within a container, you will need to run the tests with;
 
 ```shell
- docker exec -it ${CONTAINER_ID} python tests.py
+ docker exec -it ${CONTAINER_ID} python src/tests.py
 ```
 
 Or;
@@ -185,7 +185,7 @@ docker ps
 However, if you are not running the app from within a container - you can run the tests with;
 
 ```shell
-python tests.py
+python src/tests.py
 ```
 
 Or;

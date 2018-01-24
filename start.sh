@@ -1,5 +1,5 @@
 #!/bin/sh    
 
-python db.py
-python seed.py
-python app.py 
+python ../app/src/db.py
+python ../app/src/seed.py
+python ../app/src/app.py 
